@@ -1,35 +1,26 @@
-﻿
-//window.fn = {};
+﻿window.fn = {};
 
-//window.fn.open = function () {
-//    var menu = document.getElementById('menu');
-//    menu.open();
-//};
+window.fn.toggleMenu = function () {
+    document.getElementById('appSplitter').left.toggle();
+};
 
-//window.fn.load = function (page) {
-//    var content = document.getElementById('content');
-//    var menu = document.getElementById('menu');
-//    content.load(page)
-//      .then(menu.close.bind(menu));
-//};
+window.fn.loadView = function (index) {
+    //document.getElementById('appTabbar').setActiveTab(index);
+    document.getElementById('sidemenu').close();
+};
 
-var splitter = {
+window.fn.loadLink = function (url) {
+    window.open(url, '_blank');
+};
 
-    Control: {
-        MenuID: document.getElementById('menu'),
-        Content: document.getElementById('content')
-    },
+window.fn.pushPage = function (page, anim) {
+    debugger
+    if (page.id = "mapa.html")
+        Mapita.InitMapa();
 
-    Open: function () {
-           var menu = document.getElementById('menu');
-           menu.open();
-    },
-    Load: function (page) {
-        debugger
-      var content = document.getElementById('content');
-      var menu = document.getElementById('menu');
-               content.load(page)
-               .then(menu.close.bind(menu));
+    if (anim) {
+        document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+    } else {
+        document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
     }
-
 };

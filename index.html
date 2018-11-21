@@ -7,16 +7,17 @@
     <script src="onsenui/js/onsenui.min.js"></script>
     <script src="onsenui/js/jquery.min.js"></script>
     <script src="js/splitter.js"></script>
+    <script src="js/mapita.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
-       
+
         document.addEventListener("deviceready", function () {
             //ons.notification.alert("listo");
         }, false);
-       
-        
+
+
         ons.ready(function () {
-            
+
         });
 
 
@@ -39,7 +40,173 @@
 </head>
 <body>
 
-   
-  
+    <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
+        <ons-page>
+            <ons-splitter id="appSplitter">
+                <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="left" collapse="" width="260px"></ons-splitter-side>
+                <ons-splitter-content page="tabbar.html"></ons-splitter-content>
+            </ons-splitter>
+        </ons-page>
+    </ons-navigator>
+    <template id="tabbar.html">
+        <ons-page id="tabbar-page">
+            <ons-toolbar>
+                <div class="center">Inicio</div>
+                <div class="left">
+                    <ons-toolbar-button onclick="fn.toggleMenu()">
+                        <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
+
+            <script>
+                ons.getScriptPage().addEventListener('prechange', function (event) {
+                    debugger
+                    if (event.target.matches('#appTabbar')) {
+                        event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+                    }
+                });
+            </script>
+        </ons-page>
+    </template>
+
+    <template id="sidemenu.html">
+        <ons-page>
+            <div class="profile-pic">
+                <img src="https://monaca.io/img/logos/download_image_onsenui_01.png">
+            </div>
+            <ons-list-title>plugins</ons-list-title>
+            <ons-list>
+                <ons-list-item onclick="fn.loadView(0)">
+                    <div class="left">
+                        <ons-icon fixed-width class="list-item__icon" icon="ion-home, material:md-home"></ons-icon>
+                    </div>
+                    <div class="center">
+                        Inicio
+                    </div>
+                    <div class="right">
+                        <ons-icon icon="fa-link"></ons-icon>
+                    </div>
+                </ons-list-item>
+                <ons-list-item onclick="fn.pushPage({'id': 'mapa.html', 'title': 'Mapita'})">
+                    <div class="left">
+                        <ons-icon fixed-width class="list-item__icon" icon="ion-edit, material:md-edit"></ons-icon>
+                    </div>
+                    <div class="center">
+                        Mapa
+                    </div>
+                    <div class="right">
+                        <ons-icon icon="fa-link"></ons-icon>
+                    </div>
+                </ons-list-item>
+                <ons-list-item onclick="fn.loadView(2)">
+                    <div class="left">
+                        <ons-icon fixed-width class="list-item__icon" icon="ion-film-marker, material: md-movie-alt"></ons-icon>
+                    </div>
+                    <div class="center">
+                        Camara
+                    </div>
+                    <div class="right">
+                        <ons-icon icon="fa-link"></ons-icon>
+                    </div>
+                </ons-list-item>
+            </ons-list>
+            <ons-list-title style="margin-top: 10px">AJAX</ons-list-title>
+            <ons-list>
+                <ons-list-item onclick="fn.loadLink('https://onsen.io/v2/docs/guide/js/')">
+                    <div class="left">
+                        <ons-icon fixed-width class="list-item__icon" icon="ion-document-text"></ons-icon>
+                    </div>
+                    <div class="center">
+                        Docs
+                    </div>
+                    <div class="right">
+                        <ons-icon icon="fa-external-link"></ons-icon>
+                    </div>
+                </ons-list-item>
+                <ons-list-item onclick="fn.loadLink('https://github.com/OnsenUI/OnsenUI')">
+                    <div class="left">
+                        <ons-icon fixed-width class="list-item__icon" icon="ion-social-github"></ons-icon>
+                    </div>
+                    <div class="center">
+                        GitHub
+                    </div>
+                    <div class="right">
+                        <ons-icon icon="fa-external-link"></ons-icon>
+                    </div>
+                </ons-list-item>
+                <ons-list-item onclick="fn.loadLink('https://community.onsen.io/')">
+                    <div class="left">
+                        <ons-icon fixed-width class="list-item__icon" icon="ion-chatboxes"></ons-icon>
+                    </div>
+                    <div class="center">
+                        Forum
+                    </div>
+                    <div class="right">
+                        <ons-icon icon="fa-external-link"></ons-icon>
+                    </div>
+                </ons-list-item>
+                <ons-list-item onclick="fn.loadLink('https://twitter.com/Onsen_UI')">
+                    <div class="left">
+                        <ons-icon fixed-width class="list-item__icon" icon="ion-social-twitter"></ons-icon>
+                    </div>
+                    <div class="center">
+                        Twitter
+                    </div>
+                    <div class="right">
+                        <ons-icon icon="fa-external-link"></ons-icon>
+                    </div>
+                </ons-list-item>
+            </ons-list>
+            <script>
+                ons.getScriptPage().onInit = function () {
+                    // Set ons-splitter-side animation
+                    this.parentElement.setAttribute('animation', ons.platform.isAndroid() ? 'overlay' : 'reveal');
+                };
+            </script>
+            <style>
+
+                .profile-pic {
+                    width: 200px;
+                    background-color: #fff;
+                    margin: 20px auto 10px;
+                    border: 1px solid #999;
+                    border-radius: 4px;
+                }
+
+                    .profile-pic > img {
+                        display: block;
+                        max-width: 100%;
+                    }
+
+                ons-list-item {
+                    color: #444;
+                }
+            </style>
+        </ons-page>
+    </template>
+
+    <template id="home.html">
+        <ons-page>
+            <p class="intro">
+                Probaremos estos plugins, vamos a ver que tal jalan<br><br>
+            </p>
+        </ons-page>
+    </template>
+    <template id="mapa.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="left">
+                    <ons-back-button>Home</ons-back-button>
+                </div>
+                <div class="center"></div>
+            </ons-toolbar>
+            <div class="content">
+                <div id="map_canvas">
+                    <button id="button">Localizarme</button>
+                </div>
+            </div>
+        </ons-page>
+    </template>
 </body>
 </html>
