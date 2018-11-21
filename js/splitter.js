@@ -15,8 +15,13 @@ window.fn.loadLink = function (url) {
 
 window.fn.pushPage = function (page, anim) {
     debugger
-    if (page.id = "mapa.html")
-        Mapita.InitMapa();
+    if (page.id = "mapa.html") {
+        ons.ready(function () {
+            Mapita.InitMapa();
+        });
+    }
+            
+        
 
     if (anim) {
         document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
