@@ -3,7 +3,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.beersoft.TodoPlugins"
         version   = "1.0.0">
-	<name>Google Maps</name>
+	<name>Todo Plugins Cordova</name>
 	<description>
    App donde poner practica, los principales plugins de cordova
   </description>
